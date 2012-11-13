@@ -110,7 +110,9 @@
                                 'zip_code_ger_and_at': /^\d{4,5}$/, // Valid for "DE" and "AT"
                                 'no_white_space': /^\w+$/g,
                                 'number': /^\d+((?:\.\d{0,})?(?:\,\d{0,})?)$/,
-                                'integer': /^\d+$/
+                                'integer': /^\d+$/,
+                                'date_day_month_year': /^\d{1,2}\.\d{1,2}\.(\d{2}|\d{4})$/,
+                                'date_year_month_day': /^\d{4}-\d{2}-\d{2}$/
                             },
                             ajax: false,
                             optional: false,

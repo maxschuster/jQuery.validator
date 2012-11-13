@@ -83,6 +83,21 @@
                     liveCheck: true
                 });
                 
+                $('#int').validator({
+                    liveCheck: true,
+                    mask: 'integer'
+                });
+                
+                $('#number').validator({
+                    liveCheck: true,
+                    mask: 'number'
+                });
+                
+                $('#date').validator({
+                    liveCheck: true,
+                    mask: 'date_year_month_day'
+                });
+                
                 $('#zip').validator({
                     liveCheck: true,
                     optional: true,
@@ -104,6 +119,8 @@
                 $('#destroy').click(function(){
                     $('.userdata-validation').validator('destroy');
                 });
+                
+                
                 
             });
         </script>
@@ -182,6 +199,39 @@
                         </td>
                         <td>
                             Required comment field.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="number">Number:</label>
+                        </td>
+                        <td>
+                            <input id="number" type="text" value="" class="userdata-validation" />
+                        </td>
+                        <td>
+                            Float numbers allowed
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="int">Integer:</label>
+                        </td>
+                        <td>
+                            <input id="int" type="text" value="" class="userdata-validation" />
+                        </td>
+                        <td>
+                            Only integers allowed
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="date">Date:</label>
+                        </td>
+                        <td>
+                            <input id="date" type="text" value="" class="userdata-validation" />
+                        </td>
+                        <td>
+                            YYYY-MM-DD formated Date
                         </td>
                     </tr>
                     <tr>

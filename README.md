@@ -208,6 +208,22 @@ integer
 The value must be an integer.
 </td>
 </tr>
+<tr>
+<td>
+date_day_month_year
+</td>
+<td>
+Date in the format D(D).M(M).YYYY.
+</td>
+</tr>
+<tr>
+<td>
+date_year_month_day
+</td>
+<td>
+Date in the format YYYY-MM-DD.
+</td>
+</tr>
 </table>
 
 More suggestions are allways welcome... ;-)
