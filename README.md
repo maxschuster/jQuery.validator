@@ -80,7 +80,8 @@ none
 #### Returns:
 <b>jQuery Object</b> <i>To provide chainability.</i>
 
-<div style="border: 1px solid #000;"></div>
+<hr />
+
 ### destroy
 Completely removes the form checking for the given set of jQuery elements.
 
@@ -241,3 +242,13 @@ Gets triggered if the value of the input has become invalid.
 ### checkedvalue.validator
 
 Gets triggered if the current value of the input has been checked.
+
+## Style Classes
+
+### validator
+
+Added to every element that has jQuery.validator attached.
+
+### validator-invalid
+
+Added to every element that has an invalid value.
