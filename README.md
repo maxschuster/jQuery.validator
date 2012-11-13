@@ -4,6 +4,8 @@
 Licence: <b>Apache License, Version 2.0</b><br />
 Demo: http://dev.maxschuster.eu/Validator/
 
+Client-Side Form Input validation jQuery Plugin.
+
 # Documentation
 
 ## Methods
