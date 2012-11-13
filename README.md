@@ -32,7 +32,7 @@ $('selector').validator(options);
 #### Returns:
 <b>jQuery Object</b> <i>To provide chainability.</i>
 
-<div style="border: 1px solid #000;"></div>
+<hr />
 
 ### valid
 Checks if every matching element (that has jQuery.validator initialized on it) has a valid value.
@@ -48,7 +48,7 @@ none
 #### Returns:
 <b>Boolean</b> <i>True if all elements are valid or false if not.</i>
 
-<div style="border: 1px solid #000;"></div>
+<hr />
 
 ### enable
 Enables the form checking for the given set of jQuery elements.
@@ -64,7 +64,7 @@ none
 #### Returns:
 <b>jQuery Object</b> <i>To provide chainability.</i>
 
-<div style="border: 1px solid #000;"></div>
+<hr />
 
 ### disable
 Disables the form checking for the given set of jQuery elements.
