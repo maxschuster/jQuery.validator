@@ -47,7 +47,7 @@
                     }
                 }
                 
-                $this.trigger('checkedValue.validator');
+                $this.trigger('checkedvalue.validator');
 
             };
 
@@ -101,14 +101,16 @@
 
                     data = {
                         settings: {
-                            mask: 'notEmpty',
+                            mask: 'required',
                             // Predifined regexp masks
                             predefinedMasks: {
                                 // http://stackoverflow.com/questions/46155/validate-email-address-in-javascript#answer-46181
                                 'email': /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                                'notEmpty': /^.+$/gm,
-                                'zipCode': /^\d{4,5}$/, // Valid for "DE" and "AT"
-                                'noWhiteSpace': /^\w+$/g
+                                'required': /^.+$/gm,
+                                'zip_code_ger_and_at': /^\d{4,5}$/, // Valid for "DE" and "AT"
+                                'no_white_space': /^\w+$/g,
+                                'number': /^\d+((?:\.\d{0,})?(?:\,\d{0,})?)$/,
+                                'integer': /^\d+$/
                             },
                             ajax: false,
                             optional: false,
@@ -149,7 +151,7 @@
                 }
 
                 if (data.settings.rel) {
-                    $(data.settings.rel).on('checkedValue.validator', function() {
+                    $(data.settings.rel).on('checkedvalue.validator', function() {
                         $this.trigger('change.validator');
                     });
                 }
