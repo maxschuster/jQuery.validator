@@ -2,9 +2,12 @@
 # jQuery.validator
 
 Licence: <b>Apache License, Version 2.0</b><br />
-Demo: http://dev.maxschuster.eu/Validator/
+Demo: http://dev.maxschuster.eu/jQuery.validator/
 
 Client-Side Form Input validation jQuery Plugin.
+
+# Includes:
+https://github.com/maxschuster/jQuery.timer
 
 # Documentation
 
