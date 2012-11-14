@@ -2,6 +2,7 @@
     /*
      * Simulate an ajax user name check
      */
+    sleep(3);// Zzzz...
     header('Content-type: application/json');
     echo json_encode(
         !empty($_REQUEST['jquery_validate']) && 

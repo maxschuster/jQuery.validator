@@ -64,12 +64,15 @@
                 var $rel = $(rel);
                 setIsValid($rel.validator('valid') && value === $rel.val());
             } else if (ajax !== false) {
-                
+                if (data.oldAjax !== null) {
+                    data.oldAjax.abort();
+                }
                 data.ajaxTimer.timer({
                     delay: data.ajaxRefreshInterval,
                     autoStart: true
                 }).on('complete.timer', function () {
-                    $.ajax({
+                    
+                    data.oldAjax = $.ajax({
                         url: ajax,
                         dataType: 'json',
                         cache: false,
@@ -80,10 +83,14 @@
                         success: function(data) {
                             $this.removeClass('validator-loading');
                             setIsValid(data);
+                            data.oldAjax = null;
                         },
-                        error: function() {
-                            $this.removeClass('validator-loading');
-                            setIsValid(false);
+                        error: function(e) {
+                            if (e.statusText !== 'abort') {
+                                $this.removeClass('validator-loading');
+                                setIsValid(false);
+                            }
+                            data.oldAjax = null;
                         }
                     });
                 });
@@ -148,7 +155,8 @@
                         valid: false,
                         disabled: false,
                         ajaxTimer: $({}),
-                        oldValue: undefined
+                        oldValue: undefined,
+                        oldAjax: null
                     };
 
                 }
