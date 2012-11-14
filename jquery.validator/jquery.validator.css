@@ -21,7 +21,7 @@ input.validator {
     height: 22px;
 }
  
-.validator, .validator-invalid {
+.validator {
     padding-left: 19px;
     border: 1px solid #000;
     border-radius: 4px;
@@ -33,4 +33,8 @@ input.validator {
 
 .validator-invalid {
     background: url('img/invalid-16x13.gif') left center no-repeat #faa;
+}
+
+.validator-loading {
+    background: url('img/ajax-loader.gif') 2px center no-repeat;
 }

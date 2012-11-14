@@ -19,6 +19,7 @@
     var privateMethods = {
         /**
          * Handler for events that trigger a value check
+         * @ToDo: Clean this method...
          */
         check: function(e) {
             var $this = $(e.target),
@@ -28,7 +29,13 @@
                     regex = data.mask,
                     value = $this.val(),
                     rel = data.settings.rel;
-
+            
+            if (data.oldValue === value) {
+                return;
+            }
+            
+            data.oldValue = value;
+            
             var setIsValid = function(valid) {
 
                 data.valid = valid;
@@ -57,22 +64,39 @@
                 var $rel = $(rel);
                 setIsValid($rel.validator('valid') && value === $rel.val());
             } else if (ajax !== false) {
-                $.ajax({
-                    url: ajax,
-                    dataType: 'json',
-                    cache: false,
-                    type: 'post',
-                    data: {
-                        'jquery_validate': value
-                    },
-                    success: function(data) {
-                        setIsValid(data);
-                    }
+                
+                data.ajaxTimer.timer({
+                    delay: data.ajaxRefreshInterval,
+                    autoStart: true
+                }).on('complete.timer', function () {
+                    $.ajax({
+                        url: ajax,
+                        dataType: 'json',
+                        cache: false,
+                        type: 'post',
+                        data: {
+                            'jquery_validate': value
+                        },
+                        success: function(data) {
+                            $this.removeClass('validator-loading');
+                            setIsValid(data);
+                        },
+                        error: function() {
+                            $this.removeClass('validator-loading');
+                            setIsValid(false);
+                        }
+                    });
                 });
+                
+                $this.addClass('validator-loading');
+                
+                
             } else {
                 regex.lastIndex = 0;
                 setIsValid(regex.test(value));
             }
+            
+            $this.data('validator', data);
         }
     };
 
@@ -115,13 +139,16 @@
                                 'date_year_month_day': /^\d{4}-\d{2}-\d{2}$/
                             },
                             ajax: false,
+                            ajaxRefreshInterval: 2000,
                             optional: false,
                             liveCheck: false,
                             rel: false
                         },
                         mask: null,
                         valid: false,
-                        disabled: false
+                        disabled: false,
+                        ajaxTimer: $({}),
+                        oldValue: undefined
                     };
 
                 }
@@ -247,3 +274,15 @@
     };
 
 })(jQuery);
+
+/*
+ * jQuery.timer
+ * Copyright 2012 Max Schuster 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ */
+(function(c,f){var g=function(){return this.each(function(){var b=c(this),a=b.data("timer");c.extend(a,{currentCount:a.currentCount+1});c(this).data("timer",a);0!==a.settings.repeatCount&&a.currentCount>=a.settings.repeatCount?(b.timer("stop",!1),b.trigger("complete.timer",{delay:a.settings.delay,repeatCount:a.settings.repeatCount,currentCount:a.currentCount,running:a.running})):b.trigger("tick.timer",{delay:a.settings.delay,repeatCount:a.settings.repeatCount,currentCount:a.currentCount,running:a.running})})},
+e={init:function(b){return this.each(function(){var a=c(this),d=a.data("timer");d&&a.timer("destroy");d={currentCount:0,running:!1,interval:null,settings:{delay:1E3,repeatCount:1,autoStart:!1}};c.extend(d.settings,b);a.data("timer",d);!0===d.settings.autoStart&&a.timer("start")})},destroy:function(){return this.each(function(){var b=c(this),a=b.data("timer");b.timer("stop",!1);b.trigger("destroy.timer",{delay:a.settings.delay,repeatCount:a.settings.repeatCount,currentCount:a.currentCount,running:a.running});
+b.off(".timer");b.removeData("timer")})},reset:function(){return this.each(function(){var b=c(this),a=b.data("timer");b.timer("stop",!1);c.extend(a,{currentCount:0});c(this).data("timer",a);b.trigger("reset.timer",{delay:a.settings.delay,repeatCount:a.settings.repeatCount,currentCount:a.currentCount,running:a.running})})},start:function(){return this.each(function(){var b=c(this),a=b.data("timer");c.extend(a,{interval:setInterval(c.proxy(g,b),a.settings.delay),running:!0});c(this).data("timer",a);
+b.trigger("start.timer",{delay:a.settings.delay,repeatCount:a.settings.repeatCount,currentCount:a.currentCount,running:a.running})})},stop:function(b){b===f&&(b=!0);return this.each(function(){var a=c(this),d=a.data("timer");clearInterval(d.interval);c.extend(d,{interval:null,running:!1});c(this).data("timer",d);!0===b&&a.trigger("stop.timer",{delay:d.settings.delay,repeatCount:d.settings.repeatCount,currentCount:d.currentCount,running:d.running})})}};c.fn.timer=function(b){if(e[b])return e[b].apply(this,
+Array.prototype.slice.call(arguments,1));if("object"===typeof b||!b)return e.init.apply(this,arguments);c.error("Method "+b+" does not exist on jQuery.timer")}})(jQuery);
